@@ -27,7 +27,7 @@ export const reducer = (state, action) => {
 function App() {
   const [user, dispatch] = useReducer(reducer, initialState)
   return (
-    <UserContext.Provider value={[user, dispatch]}>
+    <UserContext.Provider value={{ user, dispatch }}>
       <div className="App">
         <Switch>
           <Route path="/login">
