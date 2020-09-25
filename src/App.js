@@ -25,17 +25,19 @@ export const reducer = (state, action) => {
 }
 
 function App() {
-  const [user, dispatch] = useReducer(reducer, initialState)
+  const [userState, dispatch] = useReducer(reducer, initialState)
   return (
-    <UserContext.Provider value={{ user, dispatch }}>
+    <UserContext.Provider value={{ userState, dispatch }}>
       <div className="App">
         <Switch>
           <Route path="/login">
             <Login />
           </Route>
-          <ProtectedRoute path="/" user={user}>
-            <Home />
-          </ProtectedRoute>
+          <ProtectedRoute
+            path="/"
+            user={userState.user}
+            component={<Home />}
+          />
         </Switch>
       </div>
     </UserContext.Provider>
