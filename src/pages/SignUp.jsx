@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { Box, Button, FormHelperText, TextField, Typography } from '@material-ui/core'
-import FormCard from '../FormCard'
-
+import FormCard from '../components/FormCard'
 import { useHistory } from 'react-router-dom'
-import { authFormStyles } from '../../styles/styles'
+import { authFormStyles } from '../styles/styles'
 import { signUp } from '../services/userService'
+
+
+
 
 const SignUp = () => {
     const classes = authFormStyles()
@@ -49,8 +51,8 @@ const SignUp = () => {
         if (validate()) {
             signUp(username, password)
                 .then((response) => response.text())
-                .then(() => {
-
+                .then((data) => {
+                    console.log(data)
                     // go to home after
                     history.push('/login')
                 })
