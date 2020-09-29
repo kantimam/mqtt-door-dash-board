@@ -5,8 +5,8 @@ import Login from './pages/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 import Home from './pages/Home';
 import SignUp from './pages/SignUp';
+import { localStorageUserKey } from './services/helpers';
 
-const localStorageUserKey = () => `${process.env.REACT_APP_LOCAL_STORAGE || "LOCK_APP"}_user`
 
 const initialState = {
   user: null
@@ -25,11 +25,8 @@ export const reducer = (state, action) => {
   switch (action.type) {
     case 'logIn':
       return { ...state, user: action.payload }
-    case 'logOut': {
-      localStorage.removeItem(localStorageUserKey())
+    case 'logOut':
       return { ...state, user: null }
-    }
-
 
     default:
       throw new Error('Not among actions')

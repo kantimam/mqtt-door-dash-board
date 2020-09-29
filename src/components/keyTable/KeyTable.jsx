@@ -91,7 +91,11 @@ const KeyTable = () => {
             },
             {
                 Header: 'valid until',
-                accessor: 'valid until',
+                accessor: 'validuntil',
+                Cell: props => {
+                    const date = new Date(props.value * 1000).toLocaleString("de")
+                    return date
+                }
             },
             {
                 Header: 'acctype 1',
@@ -116,7 +120,9 @@ const KeyTable = () => {
     useEffect(() => {
         (async () => {
             try {
-                const data = await fetch("http://localhost:5000/keys")
+                const data = await fetch("http://localhost:5000/keys", {
+                    credentials: 'include',
+                })
                 const json = await data.json()
                 setData(json)
             } catch (error) {
@@ -128,9 +134,7 @@ const KeyTable = () => {
 
 
 
-    const sortBy = (field, compareFunction) => {
 
-    }
 
     // We need to keep the table from resetting the pageIndex when we
     // Update data. So we can keep track of that flag with a ref.

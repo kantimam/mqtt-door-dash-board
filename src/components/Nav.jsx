@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { Button, Link } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
 import { UserContext } from '../App';
+import { localStorageUserKey } from '../services/helpers';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -29,6 +30,14 @@ export default function Nav() {
     const { dispatch } = useContext(UserContext)
     const classes = useStyles();
 
+    const logOut = () => {
+        // do the fetch thingy
+        localStorage.removeItem(localStorageUserKey())
+        dispatch({
+            type: "logOut"
+        })
+    }
+
     return (
         <div className={classes.root}>
             <AppBar position="static">
@@ -38,10 +47,10 @@ export default function Nav() {
                             Home
                         </Typography>
                     </Link>
-                    <Link color="inherit" component={RouterLink} to="/key">
+                    <Link color="inherit" component={RouterLink} to="/keys">
                         keys
                     </Link>
-                    <Link color="inherit" component={RouterLink} to="/door">
+                    <Link color="inherit" component={RouterLink} to="/doors">
                         doors
                     </Link>
                     <Link color="inherit" component={RouterLink} to="/access">
@@ -51,11 +60,7 @@ export default function Nav() {
                         events
                     </Link>
                     <Box marginLeft="auto">
-                        <Button onClick={() => {
-                            dispatch({
-                                type: "logOut"
-                            })
-                        }} variant="contained" color="secondary">
+                        <Button onClick={logOut} variant="contained" color="secondary">
                             log out
                         </Button>
                     </Box>

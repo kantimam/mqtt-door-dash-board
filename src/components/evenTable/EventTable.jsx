@@ -4,18 +4,32 @@ import EnhancedTable from '../table/EnhancedTable';
 
 
 
-/* @Column("varchar", { unique: true, length: 15, primary: true, nullable: false })
-    ip: string;
+/* 
 
-    @Column("varchar", { unique: true, length: 40 })
-    doorname: string;
+@PrimaryGeneratedColumn()
+    id: number;
 
-    @Column("bigint", { default: 0, nullable: false })
-    lastPing: number
+    @Column("varchar", { unique: true, length: 20, nullable: false })
+    type: string;
+
+    @Column("varchar", { nullable: false, length: 20 })
+    src: string;
+
+    @Column("varchar", { nullable: true, length: 40 })
+    description: string;
+
+    @Column("varchar", { nullable: false, length: 20 })
+    data: string;
+
+    @Column("varchar", { nullable: false, length: 20 })
+    time: string;
+
+    @Column("varchar", { nullable: false, length: 20 })
+    door: string;
  */
 
 
-const DoorTable = () => {
+const EventTable = () => {
     const [data, setData] = useState(null)
     const [skipPageReset, setSkipPageReset] = useState(false)
 
@@ -23,16 +37,28 @@ const DoorTable = () => {
     const columns = React.useMemo(
         () => [
             {
-                Header: 'Door IP',
-                accessor: 'ip',
+                Header: 'Event type',
+                accessor: 'type',
             },
             {
-                Header: 'Door Name',
-                accessor: 'doorname',
+                Header: 'Door',
+                accessor: 'door',
             },
             {
-                Header: 'Last Ping',
-                accessor: 'lastPing',
+                Header: 'Source',
+                accessor: 'src',
+            },
+            {
+                Header: 'Description',
+                accessor: 'description',
+            },
+            {
+                Header: 'Data',
+                accessor: 'data',
+            },
+            {
+                Header: 'Time',
+                accessor: 'time',
                 Cell: props => {
                     const date = new Date(props.value * 1000).toLocaleString("de")
                     return date
@@ -45,7 +71,7 @@ const DoorTable = () => {
     useEffect(() => {
         (async () => {
             try {
-                const data = await fetch("http://localhost:5000/doors", {
+                const data = await fetch("http://localhost:5000/events", {
                     credentials: 'include',
                 })
                 const json = await data.json()
@@ -111,4 +137,4 @@ const DoorTable = () => {
     )
 }
 
-export default DoorTable
+export default EventTable
