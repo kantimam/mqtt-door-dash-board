@@ -1,5 +1,5 @@
 import React from 'react'
-
+import makeStyles from "@material-ui/styles/makeStyles"
 import Checkbox from '@material-ui/core/Checkbox'
 import MaUTable from '@material-ui/core/Table'
 import PropTypes from 'prop-types'
@@ -20,6 +20,14 @@ import {
     useSortBy,
     useTable,
 } from 'react-table'
+
+
+const usePaginationStyles = makeStyles({
+
+    spacer: {
+        display: "none"
+    }
+});
 
 const IndeterminateCheckbox = React.forwardRef(
     ({ indeterminate, ...rest }, ref) => {
@@ -164,6 +172,9 @@ const EnhancedTable = ({
         }
     )
 
+    const paginationClasses = usePaginationStyles();
+
+
     const handleChangePage = (event, newPage) => {
         gotoPage(newPage)
     }
@@ -172,24 +183,7 @@ const EnhancedTable = ({
         setPageSize(Number(event.target.value))
     }
 
-    /* const removeByIndexs = (array, indexs) => {
-        console.log(array, indexs)
-        return array.filter((_, i) => !indexs.includes(i))
 
-    }
-
-    const deleteUserHandler = event => {
-        const newData = removeByIndexs(
-            data,
-            Object.keys(selectedRowIds).map(x => parseInt(x, 10))
-        )
-        setData(newData)
-    }
-
-    const addUserHandler = user => {
-        const newData = data.concat([user])
-        setData(newData)
-    } */
 
 
 
@@ -255,7 +249,9 @@ const EnhancedTable = ({
                                 25,
                                 { label: 'All', value: data.length },
                             ]}
-                            colSpan={3}
+                            align="left"
+                            classes={{ spacer: paginationClasses.spacer }}
+                            /* colSpan={3} */
                             count={data.length}
                             rowsPerPage={pageSize}
                             page={pageIndex}
@@ -270,6 +266,7 @@ const EnhancedTable = ({
                     </TableRow>
                 </TableFooter>
             </MaUTable>
+
         </TableContainer>
     )
 }

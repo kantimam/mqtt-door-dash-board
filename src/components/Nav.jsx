@@ -27,7 +27,7 @@ export default function Nav() {
                     </IconButton>
                     <Typography variant="h6" color="inherit">
                         Photos
-          </Typography>
+                </Typography>
                 </Toolbar>
             </AppBar>
         </div>
