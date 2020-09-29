@@ -6,6 +6,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Home from './pages/Home';
 import SignUp from './pages/SignUp';
 
+const localStorageUserKey = () => `${process.env.REACT_APP_LOCAL_STORAGE || "LOCK_APP"}_user`
+
 const initialState = {
   user: null
 }
@@ -23,24 +25,30 @@ export const reducer = (state, action) => {
   switch (action.type) {
     case 'logIn':
       return { ...state, user: action.payload }
-    case 'logOut':
+    case 'logOut': {
+      localStorage.removeItem(localStorageUserKey())
       return { ...state, user: null }
+    }
+
 
     default:
       throw new Error('Not among actions')
   }
 }
 
+
+
 function App() {
   const [userState, dispatch] = useReducer(
     reducer,
-    persistentState(`${process.env.REACT_APP_LOCAL_STORAGE || "LOCK_APP"}_user`, initialState)
+    persistentState(localStorageUserKey(), initialState)
   )
 
   useEffect(() => {
     const persist = () => {
-      const storageKey = `${process.env.REACT_APP_LOCAL_STORAGE || "LOCK_APP"}_user`
-      localStorage.setItem(`${storageKey}_user`, JSON.stringify(userState))
+      if (!userState || !userState.user) return
+      const storageKey = localStorageUserKey()
+      localStorage.setItem(`${storageKey}`, JSON.stringify(userState))
     }
     window.addEventListener("beforeunload", persist)
     return () => {

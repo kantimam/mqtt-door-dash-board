@@ -6,7 +6,6 @@ import KeyTable from '../components/keyTable/KeyTable'
 import Nav from '../components/Nav'
 
 const Home = (props) => {
-    console.log(props)
     return (
         <Box>
             <Nav />

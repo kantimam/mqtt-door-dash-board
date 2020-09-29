@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import { Button, Link } from '@material-ui/core';
+import { Link as RouterLink } from 'react-router-dom';
+import { UserContext } from '../App';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -13,21 +16,50 @@ const useStyles = makeStyles((theme) => ({
     menuButton: {
         marginRight: theme.spacing(2),
     },
+    toolBarSpacing: {
+
+        "& a+a": {
+            margin: theme.spacing(0, 0, 0, 6)
+        },
+        flexWrap: "wrap"
+    }
 }));
 
 export default function Nav() {
+    const { dispatch } = useContext(UserContext)
     const classes = useStyles();
 
     return (
         <div className={classes.root}>
             <AppBar position="static">
-                <Toolbar variant="dense">
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" color="inherit">
-                        Photos
-                </Typography>
+                <Toolbar className={classes.toolBarSpacing} variant="dense">
+                    <Link color="inherit" component={RouterLink} to="/">
+                        <Typography variant="h6" color="inherit">
+                            Home
+                        </Typography>
+                    </Link>
+                    <Link color="inherit" component={RouterLink} to="/key">
+                        keys
+                    </Link>
+                    <Link color="inherit" component={RouterLink} to="/door">
+                        doors
+                    </Link>
+                    <Link color="inherit" component={RouterLink} to="/access">
+                        access
+                    </Link>
+                    <Link color="inherit" component={RouterLink} to="/events">
+                        events
+                    </Link>
+                    <Box marginLeft="auto">
+                        <Button onClick={() => {
+                            dispatch({
+                                type: "logOut"
+                            })
+                        }} variant="contained" color="secondary">
+                            log out
+                        </Button>
+                    </Box>
+
                 </Toolbar>
             </AppBar>
         </div>
