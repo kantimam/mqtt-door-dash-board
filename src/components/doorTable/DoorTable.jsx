@@ -45,7 +45,7 @@ const DoorTable = () => {
     useEffect(() => {
         (async () => {
             try {
-                export const BASEURL = process.env.REACT_APP_BACK_END
+                const BASEURL = process.env.REACT_APP_BACK_END
                 const data = await fetch(BASEURL + "/doors", {
                     credentials: 'include',
                 })
