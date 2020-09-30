@@ -120,7 +120,8 @@ const KeyTable = () => {
     useEffect(() => {
         (async () => {
             try {
-                const data = await fetch("http://localhost:5000/keys", {
+                const BASEURL = process.env.REACT_APP_BACK_END
+                const data = await fetch(BASEURL + "/keys", {
                     credentials: 'include',
                 })
                 const json = await data.json()

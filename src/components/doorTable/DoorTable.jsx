@@ -45,7 +45,8 @@ const DoorTable = () => {
     useEffect(() => {
         (async () => {
             try {
-                const data = await fetch("http://localhost:5000/doors", {
+                export const BASEURL = process.env.REACT_APP_BACK_END
+                const data = await fetch(BASEURL + "/doors", {
                     credentials: 'include',
                 })
                 const json = await data.json()

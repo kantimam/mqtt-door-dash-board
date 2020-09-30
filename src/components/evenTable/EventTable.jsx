@@ -71,7 +71,8 @@ const EventTable = () => {
     useEffect(() => {
         (async () => {
             try {
-                const data = await fetch("http://localhost:5000/events", {
+                const BASEURL = process.env.REACT_APP_BACK_END
+                const data = await fetch(BASEURL + "/events", {
                     credentials: 'include',
                 })
                 const json = await data.json()
