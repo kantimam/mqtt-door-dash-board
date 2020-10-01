@@ -13,13 +13,9 @@ import TextField from '@material-ui/core/TextField'
 import Tooltip from '@material-ui/core/Tooltip'
 
 const initialUser = {
-    firstName: '',
-    lastName: '',
-    age: 0,
-    visits: 0,
-    status: 'single',
-    progress: 0,
-    subRows: undefined,
+    user: "",
+    uuid: "",
+    validuntil: ""
 }
 
 const AddUserDialog = props => {
@@ -76,29 +72,29 @@ const AddUserDialog = props => {
                     <TextField
                         autoFocus
                         margin="dense"
-                        label="First Name"
+                        label="User (unique)"
                         type="text"
                         fullWidth
-                        value={user.firstName}
-                        onChange={handleChange('firstName')}
+                        value={user.user}
+                        onChange={handleChange('user')}
                     />
                     <TextField
                         margin="dense"
-                        label="Last Name"
+                        label="uuid"
                         type="text"
                         fullWidth
-                        value={user.lastName}
-                        onChange={handleChange('lastName')}
+                        value={user.uuid}
+                        onChange={handleChange('uuid')}
                     />
                     <TextField
                         margin="dense"
-                        label="Age"
+                        label="valid until (timestamp for now)"
                         type="number"
                         fullWidth
-                        value={user.age}
-                        onChange={handleChange('age')}
+                        value={user.validuntil}
+                        onChange={handleChange('validuntil')}
                     />
-                    <TextField
+                    {/* <TextField
                         margin="dense"
                         label="Visits"
                         type="number"
@@ -121,7 +117,7 @@ const AddUserDialog = props => {
                         fullWidth
                         value={user.progress}
                         onChange={handleChange('progress')}
-                    />
+                    /> */}
                 </DialogContent>
                 <DialogActions>
                     <Tooltip title="Add multiple">

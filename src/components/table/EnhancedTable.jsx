@@ -94,9 +94,9 @@ EditableCell.propTypes = {
     row: PropTypes.shape({
         index: PropTypes.number.isRequired,
     }),
-    column: PropTypes.shape({
+    /* column: PropTypes.shape({
         id: PropTypes.number.isRequired,
-    }),
+    }), */
     updateMyData: PropTypes.func.isRequired,
 }
 

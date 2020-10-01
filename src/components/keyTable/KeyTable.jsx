@@ -97,7 +97,7 @@ const KeyTable = () => {
                     return date
                 }
             },
-            {
+            /* {
                 Header: 'acctype 1',
                 accessor: 'acctype',
             },
@@ -112,25 +112,26 @@ const KeyTable = () => {
             {
                 Header: 'acctype 4',
                 accessor: 'acctype4',
-            },
+            }, */
         ],
         []
     )
 
-    useEffect(() => {
-        (async () => {
-            try {
-                const BASEURL = process.env.REACT_APP_BACK_END
-                const data = await fetch(BASEURL + "/keys", {
-                    credentials: 'include',
-                })
-                const json = await data.json()
-                setData(json)
-            } catch (error) {
-                console.log(error)
-            }
+    const getAllKeys = async () => {
+        try {
+            const BASEURL = process.env.REACT_APP_BACK_END
+            const data = await fetch(BASEURL + "/keys", {
+                credentials: 'include',
+            })
+            const json = await data.json()
+            setData(json)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
-        })()
+    useEffect(() => {
+        getAllKeys()
     }, [])
 
 
@@ -164,9 +165,28 @@ const KeyTable = () => {
         setData(newData)
     }
 
-    const addDataHandler = user => {
-        const newData = data.concat([user])
-        setData(newData)
+    const addDataHandler = async (user) => {
+        try {
+            console.log(user)
+            const BASEURL = process.env.REACT_APP_BACK_END
+            const response = await fetch(BASEURL + "/key", {
+                credentials: 'include',
+                method: 'POST',
+                body: JSON.stringify(user),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            if (!response.ok) throw "invalid response"
+            const json = await response.json()
+            if (!(json.id && json.user && json.uuid && json.isOneTimeCode && json.validuntil)) throw "invalid json"
+            console.log(json)
+            const newData = data.concat([json])
+            setData(newData)
+        } catch (error) {
+            console.log(error)
+        }
+
     }
 
 
@@ -176,10 +196,7 @@ const KeyTable = () => {
     </Box>
     return (
         <Box>
-            {/* <StickyHeadTable
-                rows={data}
-                columns={columns}
-            /> */}
+
             <EnhancedTable
                 columns={columns}
                 data={data}
