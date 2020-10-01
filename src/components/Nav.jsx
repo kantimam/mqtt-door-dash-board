@@ -59,6 +59,9 @@ export default function Nav() {
                     <Link color="inherit" component={RouterLink} to="/events">
                         events
                     </Link>
+                    <Link color="inherit" component={RouterLink} to="/link">
+                        door view
+                    </Link>
                     <Box marginLeft="auto">
                         <Button onClick={logOut} variant="contained" color="secondary">
                             log out

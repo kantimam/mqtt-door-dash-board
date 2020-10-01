@@ -2,6 +2,7 @@ import { Box } from '@material-ui/core'
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import DoorTable from '../components/doorTable/DoorTable'
+import DoorView from '../components/doorView/DoorView'
 import EventTable from '../components/evenTable/EventTable'
 import KeyTable from '../components/keyTable/KeyTable'
 import Nav from '../components/Nav'
@@ -19,6 +20,9 @@ const Home = (props) => {
                 </Route>
                 <Route path="/events">
                     <EventTable />
+                </Route>
+                <Route path="/link">
+                    <DoorView />
                 </Route>
             </Switch>
         </Box>
