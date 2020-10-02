@@ -15,7 +15,7 @@ import EnhancedTable from '../table/EnhancedTable';
  */
 
 
-const DoorTable = () => {
+const ReaderTable = () => {
     const [data, setData] = useState(null)
     const [skipPageReset, setSkipPageReset] = useState(false)
 
@@ -27,8 +27,8 @@ const DoorTable = () => {
                 accessor: 'ip',
             },
             {
-                Header: 'Door Name',
-                accessor: 'doorname',
+                Header: 'Reader Name',
+                accessor: 'readerName',
             },
             {
                 Header: 'Last Ping',
@@ -46,7 +46,7 @@ const DoorTable = () => {
         (async () => {
             try {
                 const BASEURL = process.env.REACT_APP_BACK_END
-                const data = await fetch(BASEURL + "/doors", {
+                const data = await fetch(BASEURL + "/readers", {
                     credentials: 'include',
                 })
                 const json = await data.json()
@@ -93,10 +93,11 @@ const DoorTable = () => {
     }
 
 
-    console.log(data)
-    if (!data) return <Box>
-        loading
-    </Box>
+    if (!data) return (
+        <Box>
+            loading
+        </Box>
+    )
     return (
         <Box>
             <EnhancedTable
@@ -106,10 +107,10 @@ const DoorTable = () => {
                 addDataHandler={addDataHandler}
                 updateMyData={updateMyData}
                 skipPageReset={skipPageReset}
-                tableTitle="Keys"
+                tableTitle="Readers"
             />
         </Box>
     )
 }
 
-export default DoorTable
+export default ReaderTable

@@ -91,7 +91,7 @@ const KeyTable = () => {
             },
             {
                 Header: 'valid until',
-                accessor: 'validuntil',
+                accessor: 'validUntil',
                 Cell: props => {
                     const date = new Date(props.value * 1000).toLocaleString("de")
                     return date
@@ -179,8 +179,8 @@ const KeyTable = () => {
             })
             if (!response.ok) throw "invalid response"
             const json = await response.json()
-            if (!(json.id && json.user && json.uuid && json.isOneTimeCode && json.validuntil)) throw "invalid json"
-            console.log(json)
+            //if (!(json.id && json.user && json.uuid && json.validUntil)) throw "invalid json"
+            //console.log(json)
             const newData = data.concat([json])
             setData(newData)
         } catch (error) {
