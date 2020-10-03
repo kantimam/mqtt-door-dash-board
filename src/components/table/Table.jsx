@@ -1,55 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import { Box } from '@material-ui/core'
-import EnhancedTable from '../table/EnhancedTable';
-import AddUserDialog from './AddUserDialog';
+import EnhancedTable from './EnhancedTable';
+/* import AddUserDialog from './AddUserDialog'; */
 
 
 
 
-const KeyTable = () => {
+
+
+const Table = ({
+    columns = [],
+    resourcePath = "",
+    canAdd = false
+}) => {
     const [data, setData] = useState(null)
     const [skipPageReset, setSkipPageReset] = useState(false)
 
 
-    const columns = React.useMemo(
-        () => [
-            {
-                Header: 'ID',
-                accessor: 'id',
-            },
-            {
-                Header: 'User',
-                accessor: 'user',
-            },
-            {
-                Header: 'uuid',
-                accessor: 'uuid',
-            },
-            {
-                Header: 'one time code',
-                accessor: 'isOneTimeCode',
-            },
-            {
-                Header: 'valid until',
-                accessor: row => {
-                    const date = new Date(row.validUntil * 1000); // try to create a date from validUntil
-                    if (isNaN(date.getTime())) {
-                        return 0
-                    }
-                    return date.getTime()
-                },
-                Cell: props => new Date(props.value).toLocaleString("de") || "invalid date",
-
-            },
-
-        ],
-        []
-    )
 
     const getAllKeys = async () => {
         try {
             const BASEURL = process.env.REACT_APP_BACK_END
-            const data = await fetch(BASEURL + "/keys", {
+            const data = await fetch(`${BASEURL}/${resourcePath}`, {
                 credentials: 'include',
             })
             const json = await data.json()
@@ -98,7 +70,7 @@ const KeyTable = () => {
         try {
             console.log(user)
             const BASEURL = process.env.REACT_APP_BACK_END
-            const response = await fetch(BASEURL + "/key", {
+            const response = await fetch(`${BASEURL}/${resourcePath}`, {
                 credentials: 'include',
                 method: 'POST',
                 body: JSON.stringify(user),
@@ -106,7 +78,7 @@ const KeyTable = () => {
                     'Content-Type': 'application/json',
                 },
             })
-            if (!response.ok) throw Error("invalid response")
+            if (!response.ok) throw "invalid response"
             const json = await response.json()
             //if (!(json.id && json.user && json.uuid && json.validUntil)) throw "invalid json"
             //console.log(json)
@@ -130,7 +102,7 @@ const KeyTable = () => {
                 columns={columns}
                 data={data}
                 deleteDataHandler={deleteDataHandler}
-                addDataHandler={addDataHandler}
+                addDataHandler={canAdd ? addDataHandler : null}
                 updateMyData={updateMyData}
                 skipPageReset={skipPageReset}
                 AddUserDialogComponent={AddUserDialog}

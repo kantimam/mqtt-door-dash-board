@@ -32,12 +32,16 @@ const ReaderTable = () => {
             },
             {
                 Header: 'Last Ping',
-                accessor: 'lastPing',
-                Cell: props => {
-                    const date = new Date(props.value * 1000).toLocaleString("de")
-                    return date
-                }
-            }
+                accessor: row => {
+                    const date = new Date(row.lastPing * 1000); // try to create a date from validUntil
+                    if (isNaN(date.getTime())) {
+                        return 0
+                    }
+                    return date.getTime()
+                },
+                Cell: props => new Date(props.value).toLocaleString("de") || "invalid date",
+            },
+
         ],
         []
     )
