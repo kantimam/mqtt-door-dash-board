@@ -71,7 +71,7 @@ const SignUp = () => {
             <FormCard elevation={4}>
                 <Typography align='center' display='block' variant="h4">
                     Sign Up
-        </Typography>
+                </Typography>
                 <form className={classes.root} onSubmit={submit}>
                     <TextField
                         name="username"
@@ -121,7 +121,7 @@ const SignUp = () => {
                         fullWidth
                     >
                         SUBMIT
-          </Button>
+                    </Button>
 
                     <FormHelperText error={!!formError}>{formError}</FormHelperText>
                 </form>
